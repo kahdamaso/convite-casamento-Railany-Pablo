@@ -1,235 +1,246 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Convite Especial</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convite Railany & Pablo</title>
 
-  <!-- Fontes -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Fontes (opcional, pode remover se quiser 100% offline) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+      :root {
+        --bg: #f3f1ea;
+        --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+        --radius: 18px;
+      }
 
-    body {
-      min-height: 100vh;
-      font-family: 'Cormorant Garamond', serif;
-      background: #f3f1ea;
-      background-image:
-        radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
-      background-size: 4px 4px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    /* ===== TELA FECHADA ===== */
-    .invite-container {
-      width: 100%;
-      max-width: 380px;
-      text-align: center;
-      padding: 24px;
-    }
+      body {
+        min-height: 100vh;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        padding: 18px;
+      }
 
-    .invite-top {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #6b7c59;
-      margin-bottom: 0.5rem;
-    }
+      .wrap {
+        width: 100%;
+        max-width: 520px;
+      }
 
-    .invite-title {
-      font-size: 2.6rem;
-      color: #4f5f42;
-      margin-bottom: 2rem;
-    }
+      .paper {
+        background: #ffffffaa;
+        backdrop-filter: blur(6px);
+        border-radius: var(--radius);
+        padding: 16px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+      }
 
-    .invite-title span {
-      font-style: italic;
-      font-weight: 400;
-    }
+      /* ===== Telas ===== */
+      .screen {
+        display: none;
+        animation: fadeUp 0.6s ease forwards;
+      }
+      .screen.active {
+        display: block;
+      }
 
-    /* ===== ENVELOPE ===== */
-    .envelope {
-      position: relative;
-      width: 260px;
-      height: 170px;
-      margin: 0 auto;
-      background: #6b7c59;
-      border-radius: 6px;
-      box-shadow:
-        inset 0 0 0 2px rgba(255,255,255,0.12),
-        0 12px 30px rgba(0,0,0,0.35);
-      background-image:
-        repeating-linear-gradient(
-          45deg,
-          rgba(255,255,255,0.05),
-          rgba(255,255,255,0.05) 2px,
-          transparent 2px,
-          transparent 6px
-        );
-      cursor: pointer;
-    }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    .envelope-flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 55%;
-      background: #7a8b6a;
-      clip-path: polygon(0 0, 50% 100%, 100% 0);
-    }
+      /* ===== Imagens ===== */
+      .img-card {
+        width: 100%;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        background: #ddd;
+        position: relative;
+      }
 
-    /* ===== LACRE ===== */
-    .wax-seal {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 66px;
-      height: 66px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #4f5f42, #3f4f35);
-      color: #e8edd9;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      box-shadow:
-        inset 0 2px 4px rgba(255,255,255,0.25),
-        inset 0 -2px 4px rgba(0,0,0,0.45),
-        0 6px 14px rgba(0,0,0,0.45);
-      transition: transform 0.3s ease;
-    }
+      .img-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
 
-    .envelope:hover .wax-seal {
-      transform: translate(-50%, -50%) scale(1.1);
-    }
+      /* Clique no envelope */
+      .clickable {
+        cursor: pointer;
+        user-select: none;
+        transform: translateZ(0);
+        transition: transform 0.25s ease, filter 0.25s ease;
+      }
+      .clickable:hover {
+        transform: scale(1.02);
+        filter: brightness(1.02);
+      }
+      .hint {
+        text-align: center;
+        margin-top: 14px;
+        font-size: 12px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #5a6b4a;
+        opacity: 0.9;
+      }
 
-    /* ===== ÍCONES ===== */
-    .icons {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      margin-top: 2rem;
-    }
+      /* ===== Ações ===== */
+      .actions {
+        margin-top: 16px;
+        display: grid;
+        gap: 10px;
+      }
 
-    .icon {
-      width: 44px;
-      height: 44px;
-      background: #6b7c59;
-      border-radius: 50%;
-      color: #f5f5e8;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
+      .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 12px 14px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
 
-    /* ===== TELA ABERTA ===== */
-    .open-invite {
-      display: none;
-      animation: fadeIn 1s ease forwards;
-    }
+      .btn.primary {
+        background: #5a6b4a;
+        color: #f7f6f0;
+      }
+      .btn.secondary {
+        background: transparent;
+        border: 1px solid #5a6b4a;
+        color: #5a6b4a;
+      }
 
-    .open-invite h1 {
-      font-size: 2.4rem;
-      color: #4f5f42;
-      margin-bottom: 1rem;
-    }
+      .mini {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.55);
+        line-height: 1.4;
+      }
 
-    .open-invite p {
-      font-family: 'Montserrat', sans-serif;
-      color: #5a6b4a;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
+      /* Botão voltar */
+      .back {
+        margin-top: 12px;
+        background: transparent;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.6);
+        text-decoration: underline;
+        font-size: 13px;
+      }
 
-    .btn {
-      display: block;
-      margin: 0.5rem auto;
-      padding: 0.75rem 1rem;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 260px;
-      text-decoration: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.9rem;
-    }
+      /* Mobile bem “cheio” */
+      @media (max-width: 360px) {
+        body {
+          padding: 12px;
+        }
+        .paper {
+          padding: 12px;
+        }
+      }
+    </style>
 
-    .btn.primary {
-      background: #6b7c59;
-      color: #f5f5e8;
-    }
+    <!-- ✅ Pré-carrega as imagens (evita “piscar” ao abrir) -->
+    <link rel="preload" as="image" href="ENVELOPE.png" />
+    <link rel="preload" as="image" href="CONVITE.png" />
+  </head>
 
-    .btn.secondary {
-      border: 1px solid #6b7c59;
-      color: #6b7c59;
-    }
+  <body>
+    <main class="wrap">
+      <section class="paper">
+        <!-- ===== FECHADO ===== -->
+        <div id="screen-closed" class="screen active">
+          <div class="img-card clickable" onclick="openInvite()" aria-label="Abrir convite">
+            <!-- IMPORTANTE: deixe essas imagens na raiz do repo com esses nomes -->
+            <img src="ENVELOPE.png" alt="Envelope do convite" />
+          </div>
+          <p class="hint">Clique para abrir</p>
+        </div>
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
+        <!-- ===== ABERTO ===== -->
+        <div id="screen-open" class="screen">
+          <div class="img-card">
+            <img src="CONVITE.png" alt="Convite do casamento" />
+          </div>
 
-<body>
+          <div class="actions">
+            <a id="btn-rsvp" class="btn primary" target="_blank" rel="noopener">✅ Confirmar presença no WhatsApp</a>
+            <a id="btn-maps" class="btn secondary" target="_blank" rel="noopener">📍 Ver localização no mapa</a>
+          </div>
 
-  <!-- ===== FECHADO ===== -->
-  <div class="invite-container" id="closed">
-    <div class="invite-top">Você recebeu um</div>
-    <div class="invite-title">Convite <span>Especial</span></div>
+          <div class="mini">
+            Se o WhatsApp não abrir, copie e cole a mensagem manualmente.<br />
+            (Funciona melhor no celular)
+          </div>
 
-    <div class="envelope" onclick="openInvite()">
-      <div class="envelope-flap"></div>
-      <div class="wax-seal">ABRIR<br>AQUI</div>
-    </div>
+          <button class="back" onclick="goBack()">Voltar para o envelope</button>
+        </div>
+      </section>
+    </main>
 
-    <div class="icons">
-      <div class="icon">💬</div>
-      <div class="icon">📍</div>
-      <div class="icon">📷</div>
-    </div>
-  </div>
+    <script>
+      // ====== CONFIG (já com seus dados) ======
+      const RSVP_PHONE = "5537998274216";
+      const MAPS_LINK = "https://maps.app.goo.gl/pQTNmD3b7HfdHcSk9";
+      const BRIDE = "Railany";
+      const GROOM = "Pablo";
 
-  <!-- ===== ABERTO ===== -->
-  <div class="invite-container open-invite" id="open">
-    <h1>Railany & Pablo</h1>
-    <p>04 de Abril de 2026 • 16h</p>
-    <p>Condomínio dos Cristais – Chácara 12</p>
+      function buildLinks() {
+        const msg = `Olá! Estou confirmando presença no casamento de ${BRIDE} & ${GROOM} 💛`;
+        const wa = `https://wa.me/${RSVP_PHONE}?text=${encodeURIComponent(msg)}`;
 
-    <a class="btn primary"
-       href="https://wa.me/5537998274216?text=Olá!%20Confirmo%20presença%20no%20casamento%20💛"
-       target="_blank">
-       Confirmar Presença (WhatsApp)
-    </a>
+        const btnRsvp = document.getElementById("btn-rsvp");
+        const btnMaps = document.getElementById("btn-maps");
 
-    <a class="btn secondary"
-       href="https://maps.app.goo.gl/pQTNmD3b7HfdHcSk9"
-       target="_blank">
-       Ver localização no mapa
-    </a>
-  </div>
+        btnRsvp.href = wa;
+        btnMaps.href = MAPS_LINK;
+      }
 
-  <script>
-    function openInvite() {
-      document.getElementById("closed").style.display = "none";
-      document.getElementById("open").style.display = "block";
-    }
-  </script>
+      function openInvite() {
+        document.getElementById("screen-closed").classList.remove("active");
+        document.getElementById("screen-open").classList.add("active");
+        buildLinks();
+        // rola pro topo se estiver em celular
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
 
-</body>
+      function goBack() {
+        document.getElementById("screen-open").classList.remove("active");
+        document.getElementById("screen-closed").classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // garante links prontos mesmo se abrir direto (ex: cache)
+      document.addEventListener("DOMContentLoaded", buildLinks);
+    </script>
+  </body>
 </html>
-
