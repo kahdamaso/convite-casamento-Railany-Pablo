@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Convite Railany & Pablo</title>
 
-    <!-- Fontes (opcional, pode remover se quiser 100% offline) -->
+    <!-- Fontes (opcional) -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap"
       rel="stylesheet"
@@ -137,14 +137,6 @@
         color: #5a6b4a;
       }
 
-      .mini {
-        margin-top: 10px;
-        text-align: center;
-        font-size: 12px;
-        color: rgba(0, 0, 0, 0.55);
-        line-height: 1.4;
-      }
-
       /* Botão voltar */
       .back {
         margin-top: 12px;
@@ -158,7 +150,6 @@
         font-size: 13px;
       }
 
-      /* Mobile bem “cheio” */
       @media (max-width: 360px) {
         body {
           padding: 12px;
@@ -169,7 +160,7 @@
       }
     </style>
 
-    <!-- ✅ Pré-carrega as imagens (evita “piscar” ao abrir) -->
+    <!-- ✅ Pré-carrega as imagens -->
     <link rel="preload" as="image" href="ENVELOPE.png" />
     <link rel="preload" as="image" href="CONVITE.png" />
   </head>
@@ -180,7 +171,7 @@
         <!-- ===== FECHADO ===== -->
         <div id="screen-closed" class="screen active">
           <div class="img-card clickable" onclick="openInvite()" aria-label="Abrir convite">
-            <!-- IMPORTANTE: deixe essas imagens na raiz do repo com esses nomes -->
+            <!-- Deixe essas imagens na raiz do repo com esses nomes -->
             <img src="ENVELOPE.png" alt="Envelope do convite" />
           </div>
           <p class="hint">Clique para abrir</p>
@@ -193,13 +184,12 @@
           </div>
 
           <div class="actions">
-            <a id="btn-rsvp" class="btn primary" target="_blank" rel="noopener">✅ Confirmar presença no WhatsApp</a>
-            <a id="btn-maps" class="btn secondary" target="_blank" rel="noopener">📍 Ver localização no mapa</a>
-          </div>
-
-          <div class="mini">
-            Se o WhatsApp não abrir, copie e cole a mensagem manualmente.<br />
-            (Funciona melhor no celular)
+            <a id="btn-rsvp" class="btn primary" target="_blank" rel="noopener">
+              ✅ Confirmar presença no WhatsApp
+            </a>
+            <a id="btn-maps" class="btn secondary" target="_blank" rel="noopener">
+              📍 Ver localização no mapa
+            </a>
           </div>
 
           <button class="back" onclick="goBack()">Voltar para o envelope</button>
@@ -208,8 +198,11 @@
     </main>
 
     <script>
-      // ====== CONFIG (já com seus dados) ======
-      const RSVP_PHONE = "5537998274216";
+      // ====== CONFIG (atualizado com seu número) ======
+      // Número informado: 3799110-1289
+      // Formato WhatsApp: 55 + DDD + número (sem traço)
+      // => 55 37 99110 1289
+      const RSVP_PHONE = "5537991101289";
       const MAPS_LINK = "https://maps.app.goo.gl/pQTNmD3b7HfdHcSk9";
       const BRIDE = "Railany";
       const GROOM = "Pablo";
@@ -218,18 +211,14 @@
         const msg = `Olá! Estou confirmando presença no casamento de ${BRIDE} & ${GROOM} 💛`;
         const wa = `https://wa.me/${RSVP_PHONE}?text=${encodeURIComponent(msg)}`;
 
-        const btnRsvp = document.getElementById("btn-rsvp");
-        const btnMaps = document.getElementById("btn-maps");
-
-        btnRsvp.href = wa;
-        btnMaps.href = MAPS_LINK;
+        document.getElementById("btn-rsvp").href = wa;
+        document.getElementById("btn-maps").href = MAPS_LINK;
       }
 
       function openInvite() {
         document.getElementById("screen-closed").classList.remove("active");
         document.getElementById("screen-open").classList.add("active");
         buildLinks();
-        // rola pro topo se estiver em celular
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
@@ -239,7 +228,6 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
-      // garante links prontos mesmo se abrir direto (ex: cache)
       document.addEventListener("DOMContentLoaded", buildLinks);
     </script>
   </body>
